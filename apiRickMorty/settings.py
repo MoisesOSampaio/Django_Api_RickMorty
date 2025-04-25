@@ -87,7 +87,8 @@ DATABASES = {
             'charset': 'utf8mb4',
         },
         'TEST':{
-            'NAME': 'DB_TEST'
+            'NAME': 'DB_TEST',
+            'ENGINE': 'django.db.backends.sqlite'
         }
     }
 }
