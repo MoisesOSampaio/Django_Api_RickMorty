@@ -86,6 +86,9 @@ DATABASES = {
         'OPTIONS': {
             'charset': 'utf8mb4',
         },
+        'TEST':{
+            'NAME': 'DB_TEST'
+        }
     }
 }
 
