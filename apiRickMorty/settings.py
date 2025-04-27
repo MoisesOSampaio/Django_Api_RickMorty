@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+
+
+import sys
 import os
 from dotenv import load_dotenv
 from pathlib import Path
@@ -75,7 +78,31 @@ WSGI_APPLICATION = 'apiRickMorty.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
+import sys
+
+# Detecta se o Django está rodando testes
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',  # Banco SQLite criado na memória (super rápido!)
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('BANCO'),
+            'USER': os.getenv('USUARIO'),
+            'PASSWORD': os.getenv('SENHA'),
+            'HOST': 'localhost',
+            'PORT': os.getenv('PORTA'),
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            }
+        }
+    }
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         "NAME" : os.getenv("BANCO"),
@@ -86,12 +113,8 @@ DATABASES = {
         'OPTIONS': {
             'charset': 'utf8mb4',
         },
-        'TEST':{
-            'NAME': 'DB_TEST',
-            'ENGINE': 'django.db.backends.sqlite'
-        }
     }
-}
+}'''
 
 
 # Password validation
