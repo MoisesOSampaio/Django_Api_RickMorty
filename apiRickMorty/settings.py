@@ -78,14 +78,14 @@ WSGI_APPLICATION = 'apiRickMorty.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-import sys
+
 
 # Detecta se o Django está rodando testes
-if 'test' in sys.argv:
+if os.getenv('GITHUB_ACTIONS') == 'true':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': ':memory:',  # Banco SQLite criado na memória (super rápido!)
+            'NAME': ':memory:',  
         }
     }
 else:
